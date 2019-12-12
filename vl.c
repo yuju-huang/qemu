@@ -195,6 +195,11 @@ uint8_t qemu_extra_params_fw[2];
 
 int icount_align_option;
 
+bool dsag_mem_simulation = false;
+int dsag_local_mem_size = 0;
+int dsag_network_delay = 0;
+
+
 /* The bytes in qemu_uuid are in the order specified by RFC4122, _not_ in the
  * little-endian "wire format" described in the SMBIOS 2.6 specification.
  */
@@ -3122,6 +3127,18 @@ int main(int argc, char **argv, char **envp)
                 exit(1);
             }
             switch(popt->index) {
+            case QEMU_OPTION_dsag_sim:
+                dsag_mem_simulation = true;
+                printf("Enable disaggregated memory simulation!\n");
+                break;
+            case QEMU_OPTION_dsag_local_mem_size:
+                dsag_local_mem_size = atoi(optarg);
+                printf("Disaggregated local memory size is %d MB\n", dsag_local_mem_size);
+                break;
+            case QEMU_OPTION_dsag_network_delay:
+                dsag_network_delay = atoi(optarg);
+                printf("Disaggregated network delay is %d us\n", dsag_network_delay);
+                break;
             case QEMU_OPTION_cpu:
                 /* hw initialization will check this */
                 cpu_model = optarg;

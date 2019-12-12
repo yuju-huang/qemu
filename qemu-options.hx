@@ -11,6 +11,33 @@ STEXI
 @table @option
 ETEXI
 
+DEF("dsag-sim", 0, QEMU_OPTION_dsag_sim,
+    "-dsag or -dsag-sim  enable disaggregated memory simulation\n", QEMU_ARCH_ALL)
+STEXI
+@item -dsag
+@findex -dsag
+Display dsag-sim and exit
+ETEXI
+
+DEF("dsag-local-mem-size", HAS_ARG, QEMU_OPTION_dsag_local_mem_size,
+    "-dsag-local-mem-size\n"
+    "                set the local memory size in disaggregated architecture\n"
+    "                simulation\n",
+        QEMU_ARCH_ALL)
+STEXI
+@item -dsag-local-mem-size
+@findex -dsag-local-mem-size
+Set the local memory size in disaggregated architecture simulation.
+ETEXI
+
+DEF("dsag-network-delay", HAS_ARG, QEMU_OPTION_dsag_network_delay,
+    "-dsag-network-delay  set disaggregated memory delay\n", QEMU_ARCH_ALL)
+STEXI
+@item -dsag-network-delay
+@findex -dsag-network-delay
+Set the network delay in disaggregated architecture simulation.
+ETEXI
+
 DEF("help", 0, QEMU_OPTION_h,
     "-h or -help     display this help and exit\n", QEMU_ARCH_ALL)
 STEXI

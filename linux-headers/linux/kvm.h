@@ -1411,6 +1411,12 @@ struct kvm_enc_region {
 #define KVM_GET_NESTED_STATE         _IOWR(KVMIO, 0xbe, struct kvm_nested_state)
 #define KVM_SET_NESTED_STATE         _IOW(KVMIO,  0xbf, struct kvm_nested_state)
 
+struct kvm_dsag_mem_sim {
+    __u32 local_mem_size;    // in KB
+    __u32 network_delay_in_us;
+};
+#define KVM_ENABLE_DSAG_MEM_SIM    _IOW(KVMIO, 0xc2, struct kvm_dsag_mem_sim)
+
 /* Secure Encrypted Virtualization command */
 enum sev_cmd_id {
 	/* Guest initialization commands */

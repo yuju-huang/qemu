@@ -79,6 +79,10 @@ int64_t max_advance;
 static QEMUTimer *throttle_timer;
 static unsigned int throttle_percentage;
 
+extern bool dsag_mem_simulation;
+extern int dsag_local_mem_size;
+extern int dsag_network_delay;
+
 #define CPU_THROTTLE_PCT_MIN 1
 #define CPU_THROTTLE_PCT_MAX 99
 #define CPU_THROTTLE_TIMESLICE_NS 10000000
@@ -2079,6 +2083,13 @@ void qemu_init_vcpu(CPUState *cpu)
     }
 
     if (kvm_enabled()) {
+        if (dsag_mem_simulation) {
+            struct kvm_dsag_mem_sim sim;
+            sim.local_mem_size = dsag_local_mem_size;
+            sim.network_delay_in_us = dsag_network_delay;
+            int r = kvm_vm_ioctl(kvm_state, KVM_ENABLE_DSAG_MEM_SIM, &sim);
+            printf("Call KVM_ENABLE_DSAG_MEM_SIM, dsag_local_mem_size=%d(MB), network_delay=%d(us) r=%d\n", dsag_local_mem_size, dsag_network_delay, r);
+        }
         qemu_kvm_start_vcpu(cpu);
     } else if (hax_enabled()) {
         qemu_hax_start_vcpu(cpu);
