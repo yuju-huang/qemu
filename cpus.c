@@ -54,6 +54,8 @@
 #include "sysemu/replay.h"
 #include "hw/boards.h"
 
+#include <linux/kvm.h>
+
 #ifdef CONFIG_LINUX
 
 #include <sys/prctl.h>
